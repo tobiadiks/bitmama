@@ -29,10 +29,10 @@ const Home: NextPage = () => {
           <div className='w-full lg:w-1/3 mx-auto'>
             <PrimaryButton title='Login' onclick={() => route.push('/auth/login')} />
 
-            <div className='mt-4 w-full'>
+            <div className='mt-4 w-full text-sm'>
               {users.length ?
                 users.map((i, index) =>
-                  <div key={index} className='grid grid-cols-2 text-center'><div>{i.username}</div><div>active</div></div>
+                  <div key={index} className='flex justify-between'><div>{i.username}</div><div>active</div><div className='text-red-500 cursor-pointer' onClick={()=>userService.logout(i.username)}>logout</div></div>
                 ) :
                 <div className='text-center text-sm'>No logged in user</div>
               }

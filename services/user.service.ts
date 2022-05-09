@@ -14,9 +14,11 @@ const login = async (body:User) => {
 
 
 
-const logout = async () => {
-    localStorage.removeItem('user');
-    userSubject.next(null)
+const logout = async (username?:string) => {
+    let prev:User[] = JSON.parse(localStorage.getItem('bit-user') || '[]')
+    prev=prev.filter((user)=>user.username!==username)
+    userSubject.next(prev)
+    localStorage.setItem('bit-user', JSON.stringify(prev))
     Router.push('/auth/login')
 }
 
