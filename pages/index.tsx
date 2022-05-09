@@ -27,17 +27,23 @@ const Home: NextPage = () => {
 
         <Fade>
           <div className='w-full lg:w-1/3 mx-auto'>
-            <PrimaryButton title='Login' onclick={() => route.push('/auth/login')} />
-
-            <div className='mt-4 w-full text-sm'>
+            <div className='font-bold'>Current User:</div>
+            <div className='my-4 w-full text-sm'>
+            <div className='font-bold'>Active Sessions</div>
               {users.length ?
                 users.map((i, index) =>
-                  <div key={index} className='flex justify-between'><div>{i.username}</div><div>active</div><div className='text-red-500 cursor-pointer' onClick={()=>userService.logout(i.username)}>logout</div></div>
+                  <div key={index} className='grid grid-cols-3 my-2'><div>{i.username}</div><div>active</div><div className='text-red-500 cursor-pointer' onClick={()=>userService.logout(i.username)}>logout</div></div>
                 ) :
-                <div className='text-center text-sm'>No logged in user</div>
+                <div className='text-center my-2 text-sm'>No logged in user</div>
               }
             </div>
-          </div>
+            {users.length ?
+            <>
+            <div className='my-2'><PrimaryButton title='Logout' onclick={() => route.push('/auth/login')} /></div>
+            </>
+            :''}
+            <div className='my-2'><PrimaryButton title='Sign in another account' onclick={() => route.push('/auth/login')} /></div>
+            </div>
         </Fade>
 
 
