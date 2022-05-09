@@ -1,0 +1,12 @@
+@font-face {
+  font-family: Archivo;
+  src: url("../fonts/archivo/Archivo-Regular.woff") format("woff");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  scroll-behavior: smooth;
+}
