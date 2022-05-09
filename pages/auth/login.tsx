@@ -24,16 +24,14 @@ const Login: NextPage = () => {
     useEffect(() => {
         setUsers(userService.userValue)
     }, [users])
-    const onsubmit = async (data: User) => {
+    const onsubmit = async (username:string) => {
         try {
-            const isExist = users.includes(data)
-            console.log(isExist)
-            if (isExist) {
+            if (false) {
                 errorNotify('User is already logged.')
                 setTimeout(() => route.push('/'), 2000)
             }
             else {
-                await userService.login(data)
+                await userService.login({username,last_seen:new Date().toLocaleString(),id: '_'+Math.random().toString(36).substring(2,5)})
                 successNotify()
                 setTimeout(() => route.push('/'), 2000)
             }
@@ -63,7 +61,7 @@ const Login: NextPage = () => {
             <main className="bg-green-50 min-h-screen flex px-4 lg:px-0 md:px-8 py-8" >
                 <Fade clear ssrFadeout>
                     <form
-                        onSubmit={handleSubmit((data) => { onsubmit(data) })}
+                        onSubmit={handleSubmit((data) => { onsubmit(data.username); })}
                         className="mx-auto my-auto px-4 py-8 bg-white rounded-sm w-full  lg:w-1/3">
                         <Link passHref href={'/'}><div className='font-bold text-xl text-center my-auto  cursor-pointer'>Bitmama</div></Link>
                         <div className='font-thin text-base text-center my-auto '>Let&apos;s log you in.</div>

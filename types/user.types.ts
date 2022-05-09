@@ -1,4 +1,6 @@
 
 export default interface User {
-    username:string
+    id:string,
+    username:string,
+    last_seen:string,
 }

@@ -29,10 +29,10 @@ const Home: NextPage = () => {
           <div className='w-full lg:w-1/3 mx-auto'>
             <div className='font-bold'>Current User:</div>
             <div className='my-4 w-full text-sm'>
-            <div className='font-bold'>Active Sessions</div>
+            <div className='font-bold'>Active Sessions/Tabs</div>
               {users.length ?
-                users.map((i, index) =>
-                  <div key={index} className='grid grid-cols-3 my-2'><div>{i.username}</div><div>active</div><div className='text-red-500 cursor-pointer' onClick={()=>userService.logout(i.username)}>logout</div></div>
+                users.map((i) =>
+                  <div key={i.id} className='bg-green-100 hover:bg-green-200 rounded-sm p-4 grid grid-cols-3 my-2'><div>{i.username}</div><div>active</div><div className='text-red-500 cursor-pointer' onClick={()=>userService.logout(i.id)}>logout</div></div>
                 ) :
                 <div className='text-center my-2 text-sm'>No logged in user</div>
               }
