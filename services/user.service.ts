@@ -6,13 +6,10 @@ import User from "../types/user.types";
 const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('bit-user') || '[]'))
 
 const login = async (body:User) => {
-    const prev = JSON.parse(localStorage.getItem('bit-user') || '[]')
-    if(prev.length){
+    const prev:User[] = JSON.parse(localStorage.getItem('bit-user') || '[]')
+        prev.push(body)
         userSubject.next(prev)
-    }
-    
-    console.log(prev)
-    localStorage.setItem('bit-user', JSON.stringify([body,prev]))
+        localStorage.setItem('bit-user', JSON.stringify(prev))
 }
 
 
