@@ -18,7 +18,7 @@ const setActiveUser= async (id:string)=>{
 
 const login = async (body:User) => {
     const prev:User[] = JSON.parse(localStorage.getItem('bit-user') || '[]')
-        prev.push(body)
+        prev.unshift(body)
         userSubject.next(prev)
         activeSubject.next(body.id);
         localStorage.setItem('active-bit-user',JSON.stringify(body.id));
@@ -31,7 +31,7 @@ const revalidate = async (id?:string) => {
     prev=prev.filter((user)=>user.id!==id)
     if(isLoggedIn!==undefined){
         isLoggedIn.last_active= new Date().getTime()
-        prev.push(isLoggedIn);
+        prev.unshift(isLoggedIn);
         userSubject.next(prev)
         localStorage.setItem('bit-user', JSON.stringify(prev))
     }
