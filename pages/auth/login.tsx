@@ -27,8 +27,7 @@ const Login: NextPage = () => {
     }, [users,activeUser])
 
     const onsubmit = async (username:string) => {
-        const isLoggedIn=users.find((user)=>{return user.username==username})
-        console.log(isLoggedIn)
+        const isLoggedIn=users.find((user)=>{return user.username.toLowerCase()==username.toLowerCase()})
             if (isLoggedIn?.username.toLowerCase()==username.toLowerCase()) {
                 errorNotify('User is already logged.')
                 userService.setActiveUser(isLoggedIn.id)
