@@ -32,6 +32,7 @@ const Login: NextPage = () => {
             if (isLoggedIn?.username.toLowerCase()==username.toLowerCase()) {
                 errorNotify('User is already logged.')
                 userService.setActiveUser(isLoggedIn.id)
+                userService.revalidate(isLoggedIn.id)
                 setTimeout(() => route.push('/'), 2000)
             }
             else {

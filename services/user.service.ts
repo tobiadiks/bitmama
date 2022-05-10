@@ -7,6 +7,10 @@ const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStora
 const activeSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('active-bit-user') || '[]'))
 
 const setActiveUser= async (id:string)=>{
+    const prevUser=JSON.parse(localStorage.getItem('active-bit-user')||'[]');
+    if(prevUser){
+        revalidate(prevUser)
+    }    
     activeSubject.next(id);
     localStorage.setItem('active-bit-user',JSON.stringify(id));
 }

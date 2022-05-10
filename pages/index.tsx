@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               {users.length ?
                 users.map((i) =>
                
-                  <div onClick={()=>{userService.setActiveUser(i.id);userService.revalidate(i.id); route.reload()}} key={i.id} className={`${i.id==activeUser?'bg-green-300':'bg-green-100'} hover:bg-green-200 cursor-pointer rounded-sm p-4 grid grid-cols-3 my-2`}><div>{i.username}</div><div>{(new Date().getTime() - i.last_active)/1000>60?'idle':'active'}</div><div className='text-red-500 cursor-pointer' onClick={()=>{activeUser==i.id? userService.logout(activeUser):userService.logout(i.id);activeUser==i.id?userService.setActiveUser(''):''}}>logout</div></div>
+                  <div onClick={()=>{userService.setActiveUser(i.id);userService.revalidate(i.id); route.reload()}} key={i.id} className={`${i.id==activeUser?'bg-green-300':'bg-green-100'} hover:bg-green-200 cursor-pointer rounded-sm p-4 grid grid-cols-3 my-2`}><div>{i.username}</div><div>{(new Date().getTime() - i.last_active)/1000>60 && activeUser!==i.id?'idle':'active'}</div><div className='text-red-500 cursor-pointer' onClick={()=>{activeUser==i.id? userService.logout(activeUser):userService.logout(i.id);activeUser==i.id?userService.setActiveUser(''):''}}>logout</div></div>
                   
               ) :
                 <div className='text-center my-2 text-sm'>No logged in user</div>
