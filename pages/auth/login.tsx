@@ -18,30 +18,28 @@ const Login: NextPage = () => {
         username: Yup.string(),
     })
     const formOptions = { resolver: yupResolver(validateScheme) }
-    const { register, handleSubmit, setError, formState } = useForm(formOptions)
-    const { errors } = formState;
+    const { register, handleSubmit, formState } = useForm(formOptions)
     const [users, setUsers] = useState<User[]>([]);
+    const [activeUser, setActiveUser] = useState<string>('');
     useEffect(() => {
-        setUsers(userService.userValue)
-    }, [users])
+      setUsers(userService.userValue)
+      setActiveUser(userService.activeUserValue);
+    }, [users,activeUser])
+
     const onsubmit = async (username:string) => {
-        try {
-            if (false) {
+        const isLoggedIn=users.find((user)=>{return user.username==username})
+        console.log(isLoggedIn)
+            if (isLoggedIn?.username.toLowerCase()==username.toLowerCase()) {
                 errorNotify('User is already logged.')
+                userService.setActiveUser(isLoggedIn.id)
                 setTimeout(() => route.push('/'), 2000)
             }
             else {
-                await userService.login({username,last_seen:new Date().toLocaleString(),id: '_'+Math.random().toString(36).substring(2,5)})
+                await userService.login({username,last_active:new Date().getTime(),id: '_'+Math.random().toString(36).substring(2,5)})
                 successNotify()
                 setTimeout(() => route.push('/'), 2000)
             }
 
-
-
-        } catch (error) {
-            setError('error', { message: 'error' });
-            errorNotify()
-        }
     }
 
 
